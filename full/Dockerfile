@@ -15,7 +15,9 @@ RUN curl https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh | 
     && source ~/.nvm/nvm.sh \
     && nvm install $NODE_VERSION \
     && nvm alias default $NODE_VERSION \
-    && nvm use default
+    && nvm use default \
+    && npm config set python /usr/bin/python --global \
+    && npm config set python /usr/bin/python
 
 ENV NODE_PATH ~/.nvm/v$NODE_VERSION/lib/node_modules
 ENV PATH      ~/.nvm/versions/node/v$NODE_VERSION/bin:$PATH
@@ -77,13 +79,22 @@ RUN apt-get update \
 RUN ln -s /usr/bin/clangd-6.0 /usr/bin/clangd
 
 #Python
-RUN apt-get update && apt-get install -y \
-        python \
-        python-pip \
-        build-essential \
-        virtualenv \
+ENV PYENV_ROOT="/.pyenv" \
+    PATH="/.pyenv/bin:/.pyenv/shims:$PATH" \
+    LANG="en_US.UTF-8"
+
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends \
+        locales make build-essential libssl-dev zlib1g-dev libbz2-dev libreadline-dev libsqlite3-dev llvm libncurses5-dev xz-utils \
+        ca-certificates curl \
+    && localedef -i en_US -c -f UTF-8 -A /usr/share/locale/locale.alias en_US.UTF-8 \
+    && curl -L https://github.com/pyenv/pyenv-installer/raw/master/bin/pyenv-installer | bash \
     && apt-get clean && rm -rf /var/cache/apt/* && rm -rf /var/lib/apt/lists/* && rm -rf /tmp/*
-RUN pip install python-language-server
+
+RUN pyenv install 3.6.6 && \
+    pyenv global 3.6.6
+
+RUN pip install virtualenv 'python-language-server[all]'
 
 ###############################################################################
 # CONVENIENCE
