@@ -19,10 +19,10 @@ RUN bash -cl "echo -e \"\nsource /home/gitpod/emsdk/emsdk_env.sh\nclear\" >> ~/.
 
 WORKDIR /opt
 
-RUN git clone "https://github.com/WebAssembly/binaryen.git" \
+RUN sudo git clone "https://github.com/WebAssembly/binaryen.git" \
     && cd binaryen \
-    && cmake . && make \
+    && sudo cmake . && make \
     && cd .. \
-    && rm -rf binaryen
+    && sudo rm -rf binaryen
 
 ENV PATH="/opt/wasi-sdk/bin:/opt/binaryen/bin:$PATH"
