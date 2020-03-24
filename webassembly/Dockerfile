@@ -21,7 +21,7 @@ WORKDIR /opt
 
 RUN sudo git clone "https://github.com/WebAssembly/binaryen.git" \
     && cd binaryen \
-    && sudo cmake . && make \
+    && sudo env "PATH=$PATH" cmake . && make \
     && cd .. \
     && sudo rm -rf binaryen
 
