@@ -13,7 +13,7 @@ RUN bash -cl "git clone \"https://github.com/emscripten-core/emsdk.git\" \
     && ./emsdk activate latest \
     && source ./emsdk_env.sh"
 
-RUN bash -cl "echo -e \"\nsource /home/gitpod/emsdk/emsdk_env.sh\nclear\" >> ~/.bashrc"
+RUN printf "\nsource /home/gitpod/emsdk/emsdk_env.sh\nclear\n" >> ~/.bashrc
 
 WORKDIR /opt
 
