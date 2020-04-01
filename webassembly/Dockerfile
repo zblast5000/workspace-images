@@ -7,13 +7,13 @@ RUN wget "https://github.com/CraneStation/wasi-sdk/releases/download/wasi-sdk-8/
     && sudo dpkg -i wasi-sdk_8.0_amd64.deb
 
 
-RUN bash -cl "git clone \"https://github.com/emscripten-core/emsdk.git\" \
-    && cd emsdk \
+RUN git clone "https://github.com/emscripten-core/emsdk.git" $HOME/.emsdk \
+    && cd $HOME/.emsdk \
     && ./emsdk install latest \
     && ./emsdk activate latest \
-    && source ./emsdk_env.sh"
+    && bash -c "source ./emsdk_env.sh"
 
-RUN printf "\nsource /home/gitpod/emsdk/emsdk_env.sh\nclear\n" >> ~/.bashrc
+RUN printf "\nsource $HOME/.emsdk/emsdk_env.sh\nclear\n" >> ~/.bashrc
 
 RUN sudo git clone "https://github.com/WebAssembly/binaryen.git" /tmp/binaryen \
     && cd /tmp/binaryen \
