@@ -15,8 +15,8 @@ RUN bash -cl "git clone \"https://github.com/emscripten-core/emsdk.git\" \
 
 RUN printf "\nsource /home/gitpod/emsdk/emsdk_env.sh\nclear\n" >> ~/.bashrc
 
-RUN sudo git clone "https://github.com/WebAssembly/binaryen.git" /opt/binaryen \
-    && cd /opt/binaryen \
+RUN sudo git clone "https://github.com/WebAssembly/binaryen.git" /tmp/binaryen \
+    && cd /tmp/binaryen \
     && sudo env "PATH=$PATH" cmake . && sudo make \
     && cd .. \
     && sudo rm -rf binaryen
