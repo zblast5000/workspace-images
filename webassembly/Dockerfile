@@ -1,7 +1,8 @@
 FROM gitpod/workspace-full
 
 RUN bash -cl "cargo install wasm-pack cargo-wasm cargo-generate \
-    && curl \"https://wasmtime.dev/install.sh\" -sSf | bash"
+    && curl \"https://wasmtime.dev/install.sh\" -sSf | bash \
+    && rustup target add wasm32-wasi"
 
 RUN wget "https://github.com/CraneStation/wasi-sdk/releases/download/wasi-sdk-8/wasi-sdk_8.0_amd64.deb" \
     && sudo dpkg -i wasi-sdk_8.0_amd64.deb
