@@ -1,7 +1,5 @@
 FROM gitpod/workspace-full
 
-USER gitpod
-
 RUN bash -cl "cargo install wasm-pack cargo-wasm cargo-generate \
     && curl \"https://wasmtime.dev/install.sh\" -sSf | bash"
 
